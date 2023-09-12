@@ -1,7 +1,8 @@
 package org.example;
+
 import java.net.*;
 import java.io.*;
-import java.util.Arrays;
+import java.lang.
 
 public class HttpServer {
     public static void main(String[] args) throws IOException {
@@ -60,13 +61,14 @@ public class HttpServer {
                     + "</head>\n"
                     + "<body>\n"
                     + "<h1>Campos y metodos declarados</h1>\n"
-                    + Class.forName(datos); \n
+                    + Class.forName(datos)
                     + "</body>\n"
                     + "</html>\n";
 
         }
         if(comando.startsWith("invoke")){
             String datos = (String) comando.subSequence(7, -2);
+
         }
         if(comando.startsWith("unaryInvoke")) {
             String datos = comando.substring(12, -2);
@@ -75,12 +77,44 @@ public class HttpServer {
             String metodo = dato[1];
             String tipoParametro = dato[2];
             String valorParametro = dato[3];
+            int respuesta = 0;
 
+            if (clase == "Math"){
+                if (metodo == "abs"){
+                    respuesta = Math.abs(Integer.parseInt(valorParametro));
+                }
+
+            if (clase == "Integer") {
+                if (metodo == "valueOf"){
+                    respuesta = Integer.valueOf(valorParametro);
+                }
+            }
+            }
+            return  "HTTP/1.1 200 OK\r\n"
+                    + "Content-Type: text/html\r\n"
+                    + "\r\n"
+                    + "<!DOCTYPE html>\n"
+                    + "<html>\n"
+                    + "<head>\n"
+                    + "<meta charset=\"UTF-8\">\n"
+                    + "<title>Class :)</title>\n"
+                    + "</head>\n"
+                    + "<body>\n"
+                    + "<h1>Resultado de la invocación del método. paramtype = int | double | String </h1>\n"
+                    + respuesta
+                    + "</body>\n"
+                    + "</html>\n";
 
         }
+        
         if(comando.startsWith("binaryInvoke")){
-            String datos = (String) comando.subSequence(12, -2);
-            datos = Arrays.toString(datos.split(","));
+            String datos = comando.substring(12, -2);
+            String[] dato = datos.split(",");
+            String clase = dato[0].split(".")[2];
+            String metodo = dato[1];
+            String tipoParametro = dato[2];
+            String valorParametro1 = dato[3];
+            String valorParametro2 = dato[5];
 
 
         }
@@ -96,10 +130,10 @@ public class HttpServer {
                 + "<html>\n"
                 + "<head>\n"
                 + "<meta charset=\"UTF-8\">\n"
-                + "<title>Title of the document</title>\n"
+                + "<title>Parcial 1 AREP :)</title>\n"
                 + "</head>\n"
                 + "<body>\n"
-                + "<h1>Mi propio mensaje</h1>\n"
+                + "<h1>Ingresa la url adecuada para realizar la debida invocacion</h1>\n"
                 + "</body>\n"
                 + "</html>\n";
     }
